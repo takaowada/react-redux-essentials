@@ -6,6 +6,15 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
+import { fetchUsers } from './features/users/usersSlice';
+
+import { worker } from './api/server';
+
+// Start our mock API server
+worker.start({ onUnhandledRequest: 'bypass' });
+
+store.dispatch(fetchUsers());
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

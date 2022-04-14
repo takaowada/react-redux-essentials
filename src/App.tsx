@@ -1,58 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom'
+
+//import { Counter } from './features/counter/Counter';
+//import './App.css';
+
+import { Navbar } from './app/Navbar'
+import { UserPage } from './features/users/UserPage'
+import { UsersList } from './features/users/UsersList'
+import { PostsList } from './features/posts/PostsList'
+import { AddPostForm } from './features/posts/AddPostForm'
+import { SinglePostPage } from './features/posts/SinglePostPage'
+import { EditPostForm } from './features/posts/EditPostForm'
+import { NotificationsList } from './features/notifications/NotificationsList'
+
+function Home() {
+  return (
+    <div>
+    <h2>Home</h2>
+    <AddPostForm />
+    </div>
+  )
+  /*
+  return <h2>Home</h2>
+    <React.Fragment>
+      <AddPostForm />
+      <PostsList />
+    </React.Fragment>;
+    */
+}
+
+function NotFound() {
+  return <h2>このページは存在しません。</h2>;
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Router>        
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/notifications" element={<NotificationsList />} />
+          <Route path="/posts" element={<PostsList />}　/>
+          <Route path="/posts/:postId" element={<SinglePostPage />} />
+          <Route path="/editPost/:postId" element={<EditPostForm />}/>
+          <Route path="/users" element={<UsersList/>} />
+          <Route path="/users/:userId" element={<UserPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </div>
-  );
+  )
 }
+
 
 export default App;
