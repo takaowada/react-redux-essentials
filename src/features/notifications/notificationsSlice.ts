@@ -13,21 +13,36 @@ const notificationsAdapter = createEntityAdapter<Notification>({
   sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
 
+/**
+ * 非同期で処理を実行する。
+ */
 export const fetchNotifications = createAsyncThunk<
+  // payloadCreator の返り値の型
   Notification[],
+  // payloadCreator の第1引数(arg)の型・・・ここでは使わないので undefined
   undefined,
   {
+    // payloadCreator の第2引数(thunkApi)のための型
     state: RootState;
   }
->('notifications/fetchNotifications', async (_, { getState }) => {
-  const allNotifications = selectAllNotifications(getState());
-  const [latestNotification] = allNotifications;
-  const latestTimestamp = latestNotification ? latestNotification.date : '';
-  const response = await client.get(
-    `/fakeApi/notifications?since=${latestTimestamp}`
-  );
-  return response.data;
-});
+>(
+  'notifications/fetchNotifications',
+  async (
+    // 引数を使わない
+    _,
+    {
+      getState
+    }
+  ) => {
+    const allNotifications = selectAllNotifications(getState());
+    const [latestNotification] = allNotifications;
+    const latestTimestamp = latestNotification ? latestNotification.date : '';
+    const response = await client.get(
+      `/fakeApi/notifications?since=${latestTimestamp}`
+    );
+    return response.data;
+  }
+);
 
 const notificationsSlice = createSlice({
   name: 'notifications',
@@ -41,6 +56,7 @@ const notificationsSlice = createSlice({
       });
     },
   },
+  // 別で作成しておいた action に対する reducer を作成する.
   extraReducers(builder) {
     builder.addCase(
       fetchNotifications.fulfilled,

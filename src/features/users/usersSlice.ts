@@ -1,6 +1,3 @@
-/**
- * ユーザースライス。
- */
 import { RootState } from './../../app/store';
 import { User } from '../../app/types';
 import {

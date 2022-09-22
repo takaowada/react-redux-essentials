@@ -1,8 +1,7 @@
 import { rest, setupWorker } from 'msw'
 import { factory, oneOf, manyOf, primaryKey } from '@mswjs/data'
 import { nanoid } from '@reduxjs/toolkit'
-// see https://fakerjs.dev/guide/#installation
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 import seedrandom from 'seedrandom'
 import { Server as MockSocketServer } from 'mock-socket'
 import { setRandom } from 'txtgen'
@@ -38,8 +37,8 @@ if (useSeededRNG) {
     localStorage.setItem('randomTimestampSeed', randomSeedString)
   }
 
-  //rng = seedrandom(randomSeedString)
-  //setRandom(rng)
+  rng = seedrandom(randomSeedString)
+  setRandom(rng)
   faker.seed(seedDate.getTime())
 }
 

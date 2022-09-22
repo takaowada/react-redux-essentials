@@ -1,6 +1,3 @@
-/**
- * 投稿リスト。
- */
 import { Spinner } from '../../components/Spinner';
 import { PostAuthor } from './PostAuthor';
 import { TimeAgo } from './TimeAgo';

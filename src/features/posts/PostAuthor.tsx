@@ -1,6 +1,3 @@
-/**
- * 投稿者。
- */
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 
 import {
   fetchNotifications,
@@ -8,9 +8,9 @@ import {
 } from '../features/notifications/notificationsSlice'
 
 export const Navbar = () => {
-  const dispatch = useDispatch()
-  const notifications = useSelector(selectAllNotifications)
-  const numUnreadNotifications = notifications.filter((n) => !n.read).length
+  const dispatch = useAppDispatch()
+  const notifications = useAppSelector(selectAllNotifications)
+  const numUnreadNotifications = notifications.filter((n: { read: any; }) => !n.read).length
 
   const fetchNewNotifications = () => {
     dispatch(fetchNotifications())
@@ -31,7 +31,7 @@ export const Navbar = () => {
 
         <div className="navContent">
           <div className="navLinks">
-            <Link to="/posts">Posts</Link>
+            <Link to="/">Posts</Link>
             <Link to="/users">Users</Link>
             <Link to="/notifications">
               Notifications {unreadNotificationsBadge}

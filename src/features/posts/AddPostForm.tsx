@@ -1,6 +1,3 @@
-/**
- * ポストフォーム。
- */
 import React, { ChangeEventHandler, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 

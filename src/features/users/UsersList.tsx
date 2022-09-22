@@ -1,6 +1,3 @@
-/**
- * ユーザーリスト。
- */
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { Link } from 'react-router-dom'

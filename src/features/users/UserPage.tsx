@@ -1,21 +1,21 @@
-/**
- * ユーザーページ。
- */
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { selectUserById } from './usersSlice';
 import { selectPostsByUser } from '../posts/postsSlice';
 
-export const UserPage = () => {
-  // URLに含まれているuserIdをuseParams Hookを利用して取得
-  const { userId } = useParams<{userId: string}>();
+type Props = {
+  userId: string
+};
 
-  const user = useAppSelector((state) => selectUserById(state, userId ?? ''));
+export const UserPage: React.FC<Props> = (props) => {
+  const { userId } = props;
+
+  const user = useAppSelector((state) => selectUserById(state, userId));
 
   const postsForUser = useAppSelector((state) =>
-    selectPostsByUser(state, userId ?? '')
+    selectPostsByUser(state, userId)
   );
 
   if (!user) {

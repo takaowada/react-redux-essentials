@@ -1,6 +1,3 @@
-/**
- * 投稿アダプタ。
- */
 import { RootState } from './../../app/store';
 import { Post, Reaction } from '../../app/types';
 import {

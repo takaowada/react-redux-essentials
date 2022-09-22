@@ -1,21 +1,20 @@
 import React, { ChangeEventHandler, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
 
 import { postUpdated, selectPostById } from './postsSlice';
 
-export const EditPostForm = () => {
-  // URLに含まれているpostIDをuseParams Hookを利用して取得
-  const { postId } = useParams<{postId: string}>();
+type Props = { postId: string };
+export const EditPostForm: React.FC<Props> = (props) => {
+  const { postId } = props;
 
-  const post = useAppSelector((state) => selectPostById(state, postId ?? ''));
+  const post = useAppSelector((state) => selectPostById(state, postId));
 
   const [title, setTitle] = useState(post?.title ?? '');
   const [content, setContent] = useState(post?.content ?? '');
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  //const history = useHistory();
 
   const onTitleChanged: ChangeEventHandler<HTMLInputElement> = (e) =>
     setTitle(e.target.value);
@@ -24,8 +23,8 @@ export const EditPostForm = () => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(postUpdated({ id: postId ?? '', title, content }));
-      navigate(`/posts/${postId}`, { replace: true });
+      dispatch(postUpdated({ id: postId, title, content }));
+      navigate(`/posts/${postId}`);
     }
   };
 
